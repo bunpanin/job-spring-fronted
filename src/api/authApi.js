@@ -2,6 +2,37 @@ const KEYCLOAK_TOKEN_URL = "http://localhost:8080/realms/job-spring/protocol/ope
 
 const BACKEND_URL = "http://localhost:9090";
 
+export async function exchangeCodeForToken(code) {
+  const body = new URLSearchParams();
+
+  body.append("client_id", "job-spring-frontend");
+  body.append("grant_type", "authorization_code");
+  body.append("code", code);
+  body.append("redirect_uri", "http://localhost:5174/auth/callback");
+
+  const response = await fetch(
+    "http://localhost:8080/realms/job-spring/protocol/openid-connect/token",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error_description || "Cannot exchange code for token");
+  }
+
+  localStorage.setItem("access_token", data.access_token);
+  localStorage.setItem("refresh_token", data.refresh_token);
+
+  return data;
+}
+
 
 export async function checkEmailVerified(email) {
   const response = await fetch(
