@@ -1,9 +1,17 @@
+/* ================================
+   GLOBAL PAGE STYLE
+   Used for all pages
+================================ */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #eef2f7;
 }
 
+/* ================================
+   MAIN PAGE WRAPPER
+   Used for Login, Register, Dashboard pages
+================================ */
 .page {
   min-height: 100vh;
   display: flex;
@@ -12,6 +20,10 @@ body {
   padding: 30px;
 }
 
+/* ================================
+   AUTH CARD
+   Used for Register and Login form box
+================================ */
 .auth-card {
   width: 420px;
   background: white;
@@ -28,6 +40,10 @@ body {
   color: #666;
 }
 
+/* ================================
+   FORM STYLE
+   Used for Register and Login forms
+================================ */
 form {
   display: flex;
   flex-direction: column;
@@ -46,6 +62,10 @@ input {
   font-size: 14px;
 }
 
+/* ================================
+   BUTTON STYLE
+   Used for all normal buttons
+================================ */
 button {
   margin-top: 10px;
   padding: 11px;
@@ -66,6 +86,11 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* ================================
+   SECONDARY BUTTON
+   Used for Resend Verification Email
+   and Login with Google/GitHub button
+================================ */
 .secondary-btn {
   width: 100%;
   background: #111827;
@@ -75,6 +100,10 @@ button:disabled {
   background: #374151;
 }
 
+/* ================================
+   DANGER BUTTON
+   Used for Logout button
+================================ */
 .danger-btn {
   background: #dc2626;
 }
@@ -83,6 +112,10 @@ button:disabled {
   background: #b91c1c;
 }
 
+/* ================================
+   LINK BUTTON
+   Used for Login/Register switch button
+================================ */
 .link-btn {
   background: transparent;
   color: #2563eb;
@@ -95,10 +128,20 @@ button:disabled {
   text-decoration: underline;
 }
 
+/* ================================
+   SWITCH TEXT
+   Used under form:
+   Already have account? Login
+   No account? Register
+================================ */
 .switch-text {
   text-align: center;
 }
 
+/* ================================
+   ALERT MESSAGE
+   Used for success/info messages
+================================ */
 .alert {
   padding: 12px;
   border-radius: 8px;
@@ -107,11 +150,19 @@ button:disabled {
   color: #075985;
 }
 
+/* ================================
+   ERROR ALERT MESSAGE
+   Used for login/register errors
+================================ */
 .alert.error {
   background: #fee2e2;
   color: #991b1b;
 }
 
+/* ================================
+   DASHBOARD PAGE
+   Used after candidate login
+================================ */
 .dashboard {
   width: 800px;
   background: white;
@@ -120,20 +171,96 @@ button:disabled {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* ================================
+   DASHBOARD TOP BAR
+   Used for title and logout button
+================================ */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* ================================
+   PROFILE RESPONSE BOX
+   Used to show candidate profile JSON
+================================ */
 .profile-box {
   margin-top: 20px;
 }
 
+/* ================================
+   JSON PREVIEW STYLE
+   Used for displaying API response JSON
+================================ */
 pre {
   background: #111827;
   color: #d1d5db;
   padding: 16px;
   border-radius: 8px;
   overflow-x: auto;
+}
+
+/* ================================
+   VERIFICATION BOX
+   Used after register success
+   Shows email verification countdown
+================================ */
+.verify-box {
+  margin-bottom: 16px;
+  padding: 14px;
+  background: #ecfeff;
+  border: 1px solid #67e8f9;
+  border-radius: 8px;
+  color: #155e75;
+}
+
+/* ================================
+   EXPIRED VERIFICATION BOX
+   Used when verification countdown expired
+================================ */
+.verify-box.expired {
+  background: #fff7ed;
+  border-color: #fdba74;
+  color: #9a3412;
+}
+
+/* ================================
+   SUCCESS VERIFICATION BOX
+   Used when account is verified
+================================ */
+.verify-box.success {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.verify-box.success h3 {
+  margin-top: 0;
+}
+
+/* ================================
+   COUNTDOWN TEXT
+   Used for verification countdown timer
+================================ */
+.countdown {
+  font-size: 18px;
+  color: #dc2626;
+}
+
+/* ================================
+   SMALL TEXT
+   Used for helper message under countdown
+================================ */
+.small-text {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+/* ================================
+   RESEND EMAIL BOX
+   Used for Resend Verification Email button
+================================ */
+.resend-box {
+  margin-top: 16px;
 }

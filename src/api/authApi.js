@@ -2,6 +2,27 @@ const KEYCLOAK_TOKEN_URL = "http://localhost:8080/realms/job-spring/protocol/ope
 
 const BACKEND_URL = "http://localhost:9090";
 
+
+export async function checkEmailVerified(email) {
+  const response = await fetch(
+    `${BACKEND_URL}/api/auth/check-email-verified?email=${encodeURIComponent(email)}`
+  );
+
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || "Cannot check email verification status");
+  }
+
+  return data;
+}
+
 export async function loginCandidate(email, password) {
   const body = new URLSearchParams();
 
@@ -56,7 +77,31 @@ export async function registerCandidate(payload) {
   }
 
   if (!response.ok) {
-    throw new Error(data.message || `Register failed: ${response.status}`);
+    throw new Error(data.message || `This Email already token`);
+  }
+
+  return data;
+}
+
+export async function resendVerificationEmail(email) {
+  const response = await fetch(`${BACKEND_URL}/api/auth/resend-verification-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to resend verification email");
   }
 
   return data;
