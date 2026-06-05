@@ -1,63 +1,33 @@
-import { useEffect, useState } from "react";
-import keycloak from "./auth/keycloak";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import { useState } from "react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(keycloak.authenticated);
-  const [token, setToken] = useState(keycloak.token);
+  const [page, setPage] = useState("login");
+  const [authenticated, setAuthenticated] = useState(
+    !!localStorage.getItem("access_token")
+  );
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (keycloak.authenticated) {
-        keycloak
-          .updateToken(30)
-          .then((refreshed) => {
-            if (refreshed) {
-              setToken(keycloak.token);
-              console.log("Token refreshed");
-            }
-          })
-          .catch(() => {
-            console.log("Token refresh failed");
-            keycloak.logout();
-          });
-      }
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const login = () => {
-    keycloak.login({
-      redirectUri: "http://localhost:5173",
-    });
-  };
-
-  const register = () => {
-    keycloak.register({
-      redirectUri: "http://localhost:5173",
-    });
-  };
-
-  const logout = () => {
-    keycloak.logout({
-      redirectUri: "http://localhost:5173",
-    });
-  };
+  if (authenticated) {
+    return (
+      <div className="page">
+        <Dashboard onLogout={() => setAuthenticated(false)} />
+      </div>
+    );
+  }
 
   return (
-    <div className="container">
-      <h1>Job Spring Frontend Test</h1>
-
-      {!authenticated ? (
-        <Home login={login} register={register} />
-      ) : (
-        <Profile
-          logout={logout}
-          token={token}
-          setAuthenticated={setAuthenticated}
+    <div className="page">
+      {page === "login" && (
+        <Login
+          goToRegister={() => setPage("register")}
+          onLoginSuccess={() => setAuthenticated(true)}
         />
+      )}
+
+      {page === "register" && (
+        <Register goToLogin={() => setPage("login")} />
       )}
     </div>
   );
